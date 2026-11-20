@@ -31,7 +31,7 @@ The GitHub Actions workflow builds and publishes only `index.html`, `styles.css`
 3. Push to the `main` branch, or run the **Deploy storefront to GitHub Pages** workflow from the **Actions** tab.
 4. Open the Pages URL and test the menu and WhatsApp checkout. Download the menu QR from the live page after deployment.
 
-The dashboard is not published. Customer orders still open in WhatsApp; the storefront does not save orders to a shared database. GitHub Pages availability for private repositories depends on the GitHub plan.
+This repository is public, so its source files—including the dashboard files—are visible to everyone. The dashboard itself is not deployed. Customer orders still open in WhatsApp; the storefront does not save orders to a shared database.
 
 ## Ordering and payment
 
@@ -49,4 +49,4 @@ An automated WhatsApp conversation (such as replying to “Hi” with meal choic
 - The dashboard analyzes paid revenue, order counts, average order value, best sellers, category sales, payment/order status, repeat customers, requested delivery times, and locations.
 - Records are stored in the browser's local storage on this device and browser profile. They are not automatically captured from a customer's device, shared between devices, or sent to a server.
 - Use **Export CSV** for a backup and **Import CSV** to restore or merge it. CSV backups contain customer details in plain text; keep them private.
-- Anyone with access to this browser profile can see these local records. This is a local-first starter, not a protected multi-user admin system. A future database migration can replace the storage helper in `order-store.js`; automatic website order capture and secure admin sign-in should be added with that backend.
+- Anyone with access to this browser profile can see the records saved in that browser. This is a local-first starter, not a protected multi-user admin system. A future database migration can replace the storage helper in `order-store.js`; automatic website order capture and secure admin sign-in should be added with that backend.
