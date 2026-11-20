@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Fresh, convenient millet meals from Millet House. Browse the menu and order on WhatsApp."
+    />
+    <meta name="theme-color" content="#f8f7f2" />
+    <title>Millet House | Good food, made easy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Millet House home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>millet<span class="brand-light">house</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="#menu">Our menu</a>
+        <a href="#how-it-works">How it works</a>
+      </nav>
+      <button class="cart-button" id="open-cart" type="button" aria-label="Open your cart">
+        <span aria-hidden="true">Bag</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> FRESH FROM OUR KITCHEN</span>
+          <h1>Good food,<br /><span>made easy.</span></h1>
+          <p>Millet-rich meals, made with care and ready when you are. Pick your favourites and order right on WhatsApp.</p>
+          <a class="primary-button hero-button" href="#menu">Explore the menu <span aria-hidden="true">↘</span></a>
+          <div class="hero-note">
+            <span class="note-icon" aria-hidden="true">✳</span>
+            <span>Wholesome millet meals<br /><strong>Prepared fresh for you</strong></span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a nourishing millet meal">
+          <div class="sun-shape"></div>
+          <div class="food-card">
+            <span class="food-card-label">A little goodness</span>
+            <span class="food-bowl" aria-hidden="true">🥣</span>
+            <span class="food-card-caption">Made with millet<br />and a lot of love</span>
+          </div>
+          <span class="hero-spark spark-one" aria-hidden="true">✳</span>
+          <span class="hero-spark spark-two" aria-hidden="true">✦</span>
+          <span class="hero-art-tag">NOURISH YOUR DAY</span>
+        </div>
+      </section>
+
+      <section class="menu-section section-wrap" id="menu">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">THE GOOD STUFF</span>
+            <h2>Find your feel-good meal.</h2>
+          </div>
+          <p>Choose a time of day to see what’s cooking.</p>
+        </div>
+        <div class="category-tabs" id="category-tabs" role="tablist" aria-label="Meal categories"></div>
+        <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="how-section" id="how-it-works">
+        <div class="section-wrap how-inner">
+          <div class="how-copy">
+            <span class="eyebrow">SIMPLE AS THAT</span>
+            <h2>Your meal is<br />just a few taps away.</h2>
+            <div class="steps">
+              <div class="step">
+                <span class="step-number">01</span>
+                <div><h3>Choose your meal</h3><p>Browse breakfast, lunch, and dinner.</p></div>
+              </div>
+              <div class="step">
+                <span class="step-number">02</span>
+                <div><h3>Tell us the details</h3><p>Pick a delivery time and share your location.</p></div>
+              </div>
+              <div class="step">
+                <span class="step-number">03</span>
+                <div><h3>Send it on WhatsApp</h3><p>Confirm your order and pay on delivery.</p></div>
+              </div>
+            </div>
+          </div>
+          <aside class="qr-card">
+            <div class="qr-card-top">
+              <span class="qr-icon" aria-hidden="true">⌗</span>
+              <span class="eyebrow">SAVE FOR LATER</span>
+            </div>
+            <h3>Scan to see<br />the menu.</h3>
+            <p>Put this code at your gym, court, or neighbourhood spot.</p>
+            <div class="qr-frame">
+              <div id="store-qr" aria-label="QR code for the Millet House menu"></div>
+              <div class="qr-fallback" id="qr-fallback">Open this page on a web address to generate your QR code.</div>
+            </div>
+            <button class="text-button" id="download-qr" type="button" disabled>Download QR code <span aria-hidden="true">↓</span></button>
+            <p class="qr-caption">The QR points to this menu. Deploy the site before printing it.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="closing-banner section-wrap">
+        <span class="closing-spark" aria-hidden="true">✳</span>
+        <div><span class="eyebrow">A BETTER BITE IS WAITING</span><h2>Hungry yet?</h2></div>
+        <a class="primary-button" href="#menu">Pick your meal <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">M</span><span>millet<span class="brand-light">house</span></span></a>
+      <p>Good food for your everyday.</p>
+      <span>© <span id="current-year"></span> Millet House</span>
+    </footer>
+
+    <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-labelledby="cart-title" aria-hidden="true" inert>
+      <div class="drawer-header">
+        <div><span class="eyebrow">YOUR ORDER</span><h2 id="cart-title">Your bag</h2></div>
+        <button class="icon-button" id="close-cart" type="button" aria-label="Close your bag">×</button>
+      </div>
+      <div class="cart-content" id="cart-content"></div>
+      <form class="checkout-form" id="checkout-form">
+        <label>
+          Your name
+          <input name="name" autocomplete="name" placeholder="How should we address you?" required maxlength="80" />
+        </label>
+        <label>
+          Phone / WhatsApp number
+          <div class="phone-input">
+            <select name="countryCode" id="country-code" aria-label="Country calling code">
+              <option value="91" selected>India (+91)</option>
+              <option value="1">United States / Canada (+1)</option>
+              <option value="44">United Kingdom (+44)</option>
+              <option value="61">Australia (+61)</option>
+              <option value="65">Singapore (+65)</option>
+              <option value="971">United Arab Emirates (+971)</option>
+              <option value="966">Saudi Arabia (+966)</option>
+              <option value="other">Other</option>
+            </select>
+            <input name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Mobile number" pattern="[0-9]{7,15}" title="Enter 7 to 15 digits without the country code or spaces" required />
+          </div>
+          <span class="custom-code" id="custom-code" hidden>
+            <span>Country code</span>
+            <input name="customCountryCode" type="text" inputmode="numeric" placeholder="e.g. 49" pattern="[0-9]{1,4}" maxlength="4" title="Enter 1 to 4 digits for your country code" />
+          </span>
+        </label>
+        <label>
+          Delivery location
+          <textarea name="location" autocomplete="street-address" placeholder="Address or a nearby landmark" required rows="2" maxlength="300"></textarea>
+        </label>
+        <div class="form-row">
+          <label>
+            Delivery time
+            <input name="time" type="time" required />
+          </label>
+          <label>
+            Payment
+            <select name="payment" required>
+              <option value="UPI or cash on delivery">UPI or cash on delivery</option>
+              <option value="Request a payment link">Request a payment link</option>
+            </select>
+          </label>
+        </div>
+        <div class="cart-total"><span>Total</span><strong id="cart-total">₹0</strong></div>
+        <button class="primary-button checkout-button" id="checkout-button" type="submit" disabled>Continue on WhatsApp <span aria-hidden="true">↗</span></button>
+        <p class="checkout-note">We only send payment links from our business number. Never share an OTP or UPI PIN.</p>
+      </form>
+    </aside>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

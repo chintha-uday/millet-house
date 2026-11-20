@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f2" />
+    <meta name="description" content="Local Millet House order dashboard and sales analysis." />
+    <title>Order dashboard | Millet House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./admin.css" />
+    <script type="module" src="./admin.js"></script>
+  </head>
+  <body>
+    <header class="admin-header">
+      <a class="brand" href="./index.html" aria-label="Millet House storefront">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>millet<span class="brand-light">house</span></span>
+      </a>
+      <div class="header-actions">
+        <span class="local-badge"><span></span> This browser only</span>
+        <a class="store-link" href="./index.html">View storefront <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="page-heading">
+        <div>
+          <span class="eyebrow">YOUR BUSINESS AT A GLANCE</span>
+          <h1>Order dashboard</h1>
+          <p>Track orders, understand what customers love, and keep the day moving.</p>
+        </div>
+        <div class="primary-actions">
+          <button class="button button-outline" id="import-button" type="button"><span aria-hidden="true">↑</span> Import CSV</button>
+          <input id="import-file" type="file" accept=".csv,text/csv" hidden />
+          <button class="button button-outline" id="export-button" type="button"><span aria-hidden="true">↓</span> Export CSV</button>
+          <button class="button button-primary" id="new-order-button" type="button"><span aria-hidden="true">+</span> Add WhatsApp order</button>
+        </div>
+      </section>
+
+      <aside class="local-warning" role="note">
+        <span aria-hidden="true">ⓘ</span>
+        <p><strong>Local-only records.</strong> Orders are saved in this browser on this device—not in a shared database. Export CSV backups regularly. Anyone using this browser profile can see the records; CSV files are not encrypted.</p>
+      </aside>
+      <div class="notice" id="notice" role="status" aria-live="polite" hidden></div>
+
+      <section class="dashboard-toolbar" aria-label="Dashboard filters">
+        <div>
+          <span class="eyebrow">ANALYTICS</span>
+          <h2>Performance overview</h2>
+        </div>
+        <label class="period-control">
+          Period
+          <select id="period-filter">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="all">All time</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="metrics-grid" aria-label="Key metrics">
+        <article class="metric-card metric-primary">
+          <div class="metric-top"><span>Paid revenue</span><span class="metric-icon" aria-hidden="true">₹</span></div>
+          <strong id="metric-revenue">₹0</strong>
+          <small>Orders marked paid, excluding cancellations</small>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Orders</span><span class="metric-icon" aria-hidden="true">▤</span></div>
+          <strong id="metric-orders">0</strong>
+          <small id="metric-orders-note">0 delivered</small>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Average order</span><span class="metric-icon" aria-hidden="true">↗</span></div>
+          <strong id="metric-average">₹0</strong>
+          <small>Order value before payment status</small>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Awaiting payment</span><span class="metric-icon" aria-hidden="true">◷</span></div>
+          <strong id="metric-pending">₹0</strong>
+          <small id="metric-pending-note">0 orders</small>
+        </article>
+      </section>
+
+      <section class="analysis-grid">
+        <article class="panel sales-panel">
+          <div class="panel-heading">
+            <div><h3>Paid revenue trend</h3><p>Last 7 days</p></div>
+            <span class="chart-legend"><i></i> Paid</span>
+          </div>
+          <div class="bar-chart daily-chart" id="sales-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Order status</h3><p>Current workflow</p></div></div>
+          <div class="status-chart" id="status-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Best sellers</h3><p>Units in selected period</p></div></div>
+          <div class="rank-list" id="product-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Sales by meal</h3><p>Value by product category</p></div></div>
+          <div class="category-chart" id="category-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Payment mix</h3><p>Order count by payment status</p></div></div>
+          <div class="status-chart" id="payment-chart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Delivery patterns</h3><p>Popular requested times and locations</p></div></div>
+          <div class="pattern-grid">
+            <div><span class="mini-heading">BUSIEST TIME</span><strong id="peak-time">—</strong><small id="peak-time-note">No orders yet</small></div>
+            <div><span class="mini-heading">TOP LOCATION</span><strong id="top-location">—</strong><small id="top-location-note">No orders yet</small></div>
+          </div>
+        </article>
+        <article class="panel customer-panel">
+          <div class="panel-heading"><div><h3>Customer return rate</h3><p>Based on phone number</p></div></div>
+          <div class="return-rate">
+            <strong id="repeat-rate">0%</strong>
+            <div><span id="repeat-count">0 repeat customers</span><small id="unique-count">0 unique customers</small></div>
+          </div>
+          <div class="progress-track"><span id="repeat-progress"></span></div>
+        </article>
+      </section>
+
+      <section class="orders-section panel">
+        <div class="orders-heading">
+          <div><h2>Orders</h2><p id="orders-summary">No local orders yet.</p></div>
+          <div class="order-filters">
+            <label class="search-control"><span aria-hidden="true">⌕</span><input id="search-orders" type="search" placeholder="Search name, phone, ID" aria-label="Search orders" /></label>
+            <label class="select-control"><span class="visually-hidden">Filter by order status</span>
+              <select id="status-filter">
+                <option value="all">All statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="preparing">Preparing</option>
+                <option value="out_for_delivery">Out for delivery</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ORDER</th><th>CUSTOMER</th><th>ITEMS</th><th>AMOUNT</th><th>PAYMENT</th><th>STATUS</th><th>DATE</th></tr>
+            </thead>
+            <tbody id="orders-table"></tbody>
+          </table>
+          <div class="table-empty" id="table-empty" hidden>
+            <span aria-hidden="true">▤</span>
+            <strong>No orders to show</strong>
+            <p>Add orders from WhatsApp or import a CSV backup to see analysis here.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <span>Millet House · Local order book</span>
+        <span>Keep CSV backups in a private, trusted location.</span>
+      </footer>
+    </main>
+
+    <dialog class="order-dialog" id="order-dialog">
+      <form id="order-form">
+        <div class="dialog-heading">
+          <div><span class="eyebrow">FROM WHATSAPP</span><h2>Add an order</h2><p>Enter the order details you received in chat.</p></div>
+          <button class="close-dialog" id="close-dialog" type="button" aria-label="Close dialog">×</button>
+        </div>
+        <div class="form-grid">
+          <label>Customer name<input name="customerName" maxlength="80" required placeholder="Customer name" /></label>
+          <label>Phone number<input name="customerPhone" type="tel" maxlength="30" required placeholder="+91 90123 45678" /></label>
+          <label class="wide-field">Delivery location<input name="location" maxlength="300" required placeholder="Address or nearby landmark" /></label>
+          <label>Preferred delivery time<input name="deliveryTime" type="time" required /></label>
+          <label>Payment method<select name="paymentMethod"><option>UPI or cash on delivery</option><option>Payment link</option></select></label>
+          <label>Payment status<select name="paymentStatus"><option value="pending">Pending</option><option value="paid">Paid</option><option value="refunded">Refunded</option></select></label>
+        </div>
+        <div class="line-items-heading"><div><h3>Items</h3><p>Current menu prices are used when you add this order.</p></div><button class="button button-outline button-small" id="add-item-line" type="button">+ Add item</button></div>
+        <div class="order-lines" id="order-lines"></div>
+        <label class="notes-field">Order notes <textarea name="notes" rows="2" maxlength="500" placeholder="Optional details"></textarea></label>
+        <div class="form-total"><span>Order total</span><strong id="form-total">₹0</strong></div>
+        <div class="dialog-actions"><button class="button button-outline" id="cancel-order" type="button">Cancel</button><button class="button button-primary" type="submit">Save order</button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
